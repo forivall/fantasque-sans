@@ -7,7 +7,7 @@ if ! type fontforge &> /dev/null; then echo "ERROR: Missing dependency: fontforg
 name=$1
 basename=$(basename "$name" .sfdir)
 
-echo -e "\e[1;37mValidating ${basename}... \e[0m"
+printf "\e[1;37mValidating ${basename}... \e[0m\n"
 
 output=$(fontforge --quiet -lang=py -script - "$name" <<EOF
 import fontforge;
@@ -23,7 +23,7 @@ EOF
 error=$?
 
 if [ "x$error" != "x0" ]; then
-  echo -e "\e[1;31mError in ${basename}.\e[0m"
+  printf "\e[1;31mError in ${basename}.\e[0m\n"
   if [ "x$error" = "x42" ]; then
     echo "Font ${basename}.sfd is not valid"
   fi
